@@ -1,0 +1,36 @@
+
+<div class="orderForm">
+	<form id="sendForm" action="" method="get">
+		
+	<input type="text" name="llcname" id="llcname" value="Наименование организации" onblur="if(value==''){value = 'Наименование организации'; $('#llcname').css({'color': '#BBB'});} else {$('#llcname').css({'color': '#000'});}" onfocus="if(value=='Наименование организации'){ value = ''; $('#llcname').css({'color': '#000'});}"><br>
+
+	<input type="tel" name="phone" id="phone" value="Телефон" onblur="if(value==''){value = 'Телефон'; $('#phone').css({'color': '#BBB'});} else {$('#phone').css({'color': '#000'});}" onfocus="if(value=='Телефон'){ value = ''; $('#phone').css({'color': '#000'});}"><br>
+
+	<input type="text" name="name" id="name" value="Ф.И.О." onblur="if(value==''){value = 'Ф.И.О.'; $('#name').css({'color': '#BBB'});} else {$('#name').css({'color': '#000'});}" onfocus="if(value=='Ф.И.О.'){ value = ''; $('#name').css({'color': '#000'});}"><br>
+
+	<input type="text" name="email" id="email" value="E-mail" onblur="if(value==''){value = 'E-mail'; $('#email').css({'color': '#BBB'});} else {$('#email').css({'color': '#000'});}" onfocus="if(value=='E-mail'){ value = ''; $('#email').css({'color': '#000'});}"><br>
+
+	<input name="comments" id="comments" maxlength="200" value="Сообщение" onblur="if(value==''){value = 'Сообщение'; $('#comments').css({'color': '#BBB'});} else {$('#comments').css({'color': '#000'});}" onfocus="if(value=='Сообщение'){ value = ''; $('#comments').css({'color': '#000'});}"></input>
+	<br>
+
+	<span id="submit" onclick="AjaxFormRequest('sendForm', 'mailsend.php');">ОТПРАВИТЬ</span>
+	</form>
+</div>
+<script>
+	function AjaxFormRequest(sendForm,url) {
+		$.ajax({
+			url: url,
+			type: "GET",
+			dataType: "html",
+			data: $("#"+sendForm).serialize(),
+			success: function(response){
+				console.log(response);
+				$('.orderForm').html('<p class="sendOk">Ваше сообщение отправлено</p>');
+			},
+			error: function(response){
+				$('.orderForm').html("Ваше сообщение НЕ отправлено");
+			}
+		});
+	}
+</script>
+
